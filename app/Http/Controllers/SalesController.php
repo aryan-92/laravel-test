@@ -17,6 +17,14 @@ class SalesController extends Controller
     public function AddSales(Request $request)
     {
         //return $request;
+        $rules = [
+            'productSelect' => 'required', // Add more rules as needed
+            'quantity' => 'required|numeric|min:1',
+            'ucost' => 'required|numeric|min:0.01', // Assuming ucost cannot be zero
+        ];
+
+        // Validate the request data
+        $validatedData = $request->validate($rules);
         $product = new ProductSale();
         $product->product_name = $request->productName;
         $product->product_qty = $request->quantity;
